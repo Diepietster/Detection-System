@@ -98,14 +98,11 @@ namespace Vehicle_Number_Plate_Detection
                     objOcr.Init(Patagames.Ocr.Enums.Languages.English);
 
                     string numberPlate = objOcr.GetTextFromImage(picUpload.ImageLocation);
-                    numberPlate = numberPlate.ToUpper().Replace(" ", "");
+                    numberPlate = numberPlate.ToUpper().Replace(" ", "").Trim();
 
-                    MessageBox.Show(numberPlate);
-
-                    string sql_statement = $"SELECT * FROM Vehicles WHERE NumberPlate LIKE '%{numberPlate}%'";
+                    string sql_statement = $"SELECT * FROM Vehicles WHERE NumberPlate='{numberPlate}'";
                     Authenticate(sql_statement);
 
-                    DisplayAllVehicles(DEFAULT_STATEMENT);
 
                 }
             }
@@ -117,7 +114,6 @@ namespace Vehicle_Number_Plate_Detection
             try                                                                                                                            //Use try catch block to catch any errors
             {
                 string securityClearance;
-                DisplayAllVehicles(sql_statement);
 
                 connection.Open();
 
